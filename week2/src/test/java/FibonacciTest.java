@@ -1,3 +1,5 @@
+import static org.junit.Assert.assertEquals;
+
 /**
  * Created by Marcin_Bazarnik on 2016-09-28.
  */
