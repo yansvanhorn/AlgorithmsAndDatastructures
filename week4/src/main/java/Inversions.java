@@ -2,15 +2,41 @@ import java.util.*;
 
 public class Inversions {
 
-    private static long getNumberOfInversions(int[] a, int[] b, int left, int right) {
+    public static long getNumberOfInversions(int[] a, int[] b, int left, int right) {
         long numberOfInversions = 0;
-        if (right <= left + 1) {
+        if (left + 1 >= right) {
             return numberOfInversions;
         }
         int ave = (left + right) / 2;
         numberOfInversions += getNumberOfInversions(a, b, left, ave);
         numberOfInversions += getNumberOfInversions(a, b, ave, right);
+
         //write your code here
+        int a1idx = left, a2idx = ave, bidx = left;
+
+        while(a1idx < ave && a2idx < right) {
+            if(a[a1idx] > a[a2idx]) {
+                b[bidx++] = a[a2idx++];
+                numberOfInversions++;
+            }
+            if(a[a1idx] <= a[a2idx]) {
+                b[bidx++] = a[a1idx++];
+            }
+        }
+
+        while(a1idx < ave) {
+            b[bidx++] = a[a1idx++];
+            numberOfInversions++;
+        }
+
+        while(a2idx < right) {
+            b[bidx++] = a[a2idx++];
+        }
+
+        for(int i = left; i < right; i++) {
+            a[i] = b[i];
+        }
+
         return numberOfInversions;
     }
 
