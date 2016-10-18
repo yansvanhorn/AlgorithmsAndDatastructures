@@ -13,25 +13,32 @@ public class PointsAndSegments {
         valueChanges[vidx] = point;
         values[vidx++] = value;
 
+        // Calculate value changes table
+        //
+        // 0   1  2      1   1      <- values
+        // |   |  |      |   |      <- axis value in valueChanges
+        //        +-----+
+        //     +--+     +---+
+        // ----+            +-----
+        //
         while(sidx < starts.length && eidx < ends.length) {
-            if(starts[sidx] <= ends[eidx]) {
+            if(starts[sidx] <= ends[eidx] + 1) {
                 point = starts[sidx];
 //                System.out.printf("Start[%d] = %d\n", sidx, point);
-
-                while(sidx < starts.length && point == starts[sidx]) {
-                    value++;
-                    sidx++;
-//                    System.out.println("Value up " + value);
-                }
-            } else if (starts[sidx] >= ends[eidx]) {
+            } else {
                 point = ends[eidx] + 1;
 //                System.out.printf("End[%d] = %d\n", eidx, point);
+            }
 
-                while(eidx < ends.length && point > ends[eidx]) {
-                    value--;
-                    eidx++;
+            while(sidx < starts.length && point == starts[sidx]) {
+                value++;
+                sidx++;
+//                    System.out.println("Value up " + value);
+            }
+            while(eidx < ends.length && point == ends[eidx] + 1) {
+                value--;
+                eidx++;
 //                    System.out.println("Value down " + value);
-                }
             }
 
             if(value != lastValue) {
@@ -44,7 +51,7 @@ public class PointsAndSegments {
 
         while (eidx < ends.length) {
             point = ends[eidx] + 1;
-            while(eidx < ends.length && point > ends[eidx]) {
+            while(eidx < ends.length && point == ends[eidx] + 1) {
                 value--;
                 eidx++;
 //                System.out.println("Value down " + value);
@@ -62,8 +69,6 @@ public class PointsAndSegments {
 //        System.out.println("valueChanges = " + Arrays.toString(valueChanges));
 //        System.out.println("      values = " + Arrays.toString(values));
 
-
-
         int[] cnt = new int[points.length];
         for (int p = 0; p < points.length; p++) {
             int idx = Arrays.binarySearch(valueChanges, points[p]);
@@ -80,7 +85,7 @@ public class PointsAndSegments {
         return cnt;
     }
 
-    private static int[] naiveCountSegments(int[] starts, int[] ends, int[] points) {
+    public static int[] naiveCountSegments(int[] starts, int[] ends, int[] points) {
         int[] cnt = new int[points.length];
         for (int i = 0; i < points.length; i++) {
             for (int j = 0; j < starts.length; j++) {
@@ -108,7 +113,7 @@ public class PointsAndSegments {
             points[i] = scanner.nextInt();
         }
         //use fastCountSegments
-        int[] cnt = naiveCountSegments(starts, ends, points);
+        int[] cnt = fastCountSegments(starts, ends, points);
         for (int x : cnt) {
             System.out.print(x + " ");
         }
