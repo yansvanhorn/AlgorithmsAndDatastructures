@@ -3,19 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>base</artifactId>
+        <artifactId>week4</artifactId>
         <groupId>com.yans.datasttructuresandalgorithms</groupId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../week4/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>week4</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>../week5</module>
-    </modules>
-    <dependencies>
-    </dependencies>
+    <artifactId>week5</artifactId>
 
 
 </project>
