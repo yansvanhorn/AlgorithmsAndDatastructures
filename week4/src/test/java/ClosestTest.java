@@ -118,18 +118,18 @@ public class ClosestTest {
     public void testPerformance() throws Exception {
         Random random = new Random(new Date().getTime());
 
-        int[] x = random.ints(1000000, -100000000, 100000000).toArray();
+        int[] x = random.ints(100000, -100000000, 100000000).toArray();
 //        int[] x = random.ints(100000, 0, 1).toArray();
-        int[] y = random.ints(1000000, -100000000, 100000000).toArray();
+        int[] y = random.ints(100000, -100000000, 100000000).toArray();
 
-        ClosestTwoArraysPawel closestTwoArrays = new ClosestTwoArraysPawel();
+//        ClosestTwoArraysPawel closestTwoArrays = new ClosestTwoArraysPawel();
 
         LinkedList<Long> times = new LinkedList<>();
         for (int i = 0; i < 200; i++) {
             StopWatch stopWatch = new StopWatch();
             stopWatch.start();
-//            Closest.minimalDistance(x, y);
-            closestTwoArrays.minimalDistance(x, y);
+            Closest.minimalDistance(x, y);
+//            closestTwoArrays.minimalDistance(x, y);
             stopWatch.stop();
             times.add(stopWatch.getTime());
             System.out.println("i=" + i + " " + stopWatch.getTime() + " ms");
