@@ -41,14 +41,6 @@ public class Knapsack {
             }
         }
 
-        // Find total weight
-//        int total = 0;
-//        for (int b = 0; b < bars.length; b++) {
-//            if(taken[w][b]) {
-//                total += bars[b];
-//            }
-//        }
-
         return weight[w];
     }
 
