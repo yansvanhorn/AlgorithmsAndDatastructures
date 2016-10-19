@@ -28,12 +28,12 @@ public class PrimitiveCalculator {
         // Fill counts and ops
         for (int i = 1; i <= n; i++) {
             counts[i] = Integer.MAX_VALUE;
-            if ((i % 3) == 0 && (i % 3) >= 0) {
-                counts[i] = counts[i % 3] + 1;
+            if ((i % 3) == 0 && (i / 3) >= 0) {
+                counts[i] = counts[i / 3] + 1;
                 ops[i] = Op.MUL3;
             }
-            if ((i % 2) == 0 && (i % 2) >= 0) {
-                count = counts[i % 2] + 1;
+            if ((i % 2) == 0 && (i / 2) >= 0) {
+                count = counts[i / 2] + 1;
                 if (count < counts[i]) {
                     counts[i] = count;
                     ops[i] = Op.MUL2;
@@ -45,6 +45,8 @@ public class PrimitiveCalculator {
                 ops[i] = Op.ADD1;
             }
         }
+
+//        System.out.println(Arrays.toString(ops));
 
         // Backtrack solution
         LinkedList<Integer> sequence = new LinkedList<>();
@@ -88,7 +90,7 @@ public class PrimitiveCalculator {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
-        List<Integer> sequence = optimal_sequence(n);
+        List<Integer> sequence = optimal_dp(n);
         System.out.println(sequence.size() - 1);
         for (Integer x : sequence) {
             System.out.print(x + " ");
