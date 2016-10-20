@@ -51,7 +51,7 @@ class EditDistance {
 //        String salign = s.substring(s.length() - 1), talign = t.substring(t.length() - 1);
         String salign = "", talign = "";
 
-        for (int ti = t.length(), si = s.length(); ti > 0 && si > 0; ) {
+        for (int ti = t.length(), si = s.length(); ti > 0 || si > 0; ) {
             int min = dist[si][ti];
             int offsets = 0, offsett = 0;
 
@@ -65,7 +65,7 @@ class EditDistance {
                 offsett = -1;
                 min = dist[si][ti - 1];
             }
-            if (si - 1 >= 0 && ti - 1 >= 0 && dist[si - 1][ti - 1] <= min) { // match/mismatch
+            if (si - 1 >= 0 && ti - 1 >= 0 && dist[si - 1][ti - 1] <= min) { // match/mismatch <- preferable, so last
                 offsets = -1;
                 offsett = -1;
                 min = dist[si - 1][ti - 1];

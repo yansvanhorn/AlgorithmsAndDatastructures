@@ -19,5 +19,6 @@ public class EditDistanceTest {
         for(String s : alignment) {
             System.out.println(s);
         }
+        assertArrayEquals(new String[] { "edi-tin-g", "-distance" }, alignment);
     }
 }
