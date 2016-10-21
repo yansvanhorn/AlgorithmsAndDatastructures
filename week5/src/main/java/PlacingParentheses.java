@@ -83,22 +83,19 @@ public class PlacingParentheses {
     }
 
     public static int[] parseValues(String exp) {
+        int[] values = new int[(exp.length() + 1) / 2];
 
-        String[] tokens = exp.split(" ");
-        int[] values = new int[(tokens.length + 1) / 2];
-
-        for (int i = 0; i < tokens.length; i += 2) {
-            values[i / 2] = Integer.valueOf(tokens[i]);
+        for (int i = 0; i < exp.length(); i += 2) {
+            values[i / 2] = Integer.valueOf(exp.substring(i, i + 1));
         }
         return values;
     }
 
     public static Op[] parseOps(String exp) {
 
-        String[] tokens = exp.split(" ");
-        Op[] ops = new Op[(tokens.length - 1) / 2];
-        for (int i = 1; i < tokens.length; i += 2) {
-            ops[i / 2] = Op.valueOfOp(tokens[i]);
+        Op[] ops = new Op[(exp.length() - 1) / 2];
+        for (int i = 1; i < exp.length(); i += 2) {
+            ops[i / 2] = Op.valueOfOp(exp.substring(i, i + 1));
         }
         return ops;
     }
