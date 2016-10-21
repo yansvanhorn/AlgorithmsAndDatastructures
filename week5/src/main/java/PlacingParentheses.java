@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.function.BiFunction;
@@ -12,7 +11,7 @@ enum Op {
     SUB("-", (a, b) -> a - b);
 
     private String op;
-    private BiFunction<Integer, Integer, Integer> function;
+    private BiFunction<Long, Long, Long> function;
 
     static HashMap<String, Op> ops = new HashMap<>();
     static {
@@ -21,7 +20,7 @@ enum Op {
         }
     }
 
-    Op(String op, BiFunction<Integer, Integer, Integer> function) {
+    Op(String op, BiFunction<Long, Long, Long> function) {
         this.op = op;
         this.function = function;
     }
@@ -30,7 +29,7 @@ enum Op {
         return ops.get(op);
     }
 
-    public int apply(int a, int b) {
+    public long apply(long a, long b) {
         return function.apply(a, b);
     }
 
@@ -40,11 +39,11 @@ enum Op {
 public class PlacingParentheses {
     public static long getMaximValue(String exp) {
         // parse input
-        int[] values = parseValues(exp);
+        long[] values = parseValues(exp);
         Op[] ops = parseOps(exp);
 
-        int[][] maxs = new int[values.length + 1][values.length + 1];
-        int[][] mins = new int[values.length + 1][values.length + 1];
+        long[][] maxs = new long[values.length + 1][values.length + 1];
+        long[][] mins = new long[values.length + 1][values.length + 1];
 
         // init (diagonal: 1 - values.length)
         for (int i = 1; i <= values.length; i++) {
@@ -58,14 +57,14 @@ public class PlacingParentheses {
             for (int i = 1; i <= values.length - s; i++) {
                 int j = i + s;
 
-                int min = Integer.MAX_VALUE;
-                int max = Integer.MIN_VALUE;
+                long min = Integer.MAX_VALUE;
+                long max = Integer.MIN_VALUE;
 
                 for(int k = i; k <= j - 1; k++) {
-                    int a = ops[k-1].apply(maxs[i][k], maxs[k + 1][j]);
-                    int b = ops[k-1].apply(maxs[i][k], mins[k + 1][j]);
-                    int c = ops[k-1].apply(mins[i][k], maxs[k + 1][j]);
-                    int d = ops[k-1].apply(mins[i][k], mins[k + 1][j]);
+                    long a = ops[k-1].apply(maxs[i][k], maxs[k + 1][j]);
+                    long b = ops[k-1].apply(maxs[i][k], mins[k + 1][j]);
+                    long c = ops[k-1].apply(mins[i][k], maxs[k + 1][j]);
+                    long d = ops[k-1].apply(mins[i][k], mins[k + 1][j]);
 
                     min = min(min, min(min(a, b), min(c, d)));
                     max = max(max, max(max(a, b), max(c, d)));
@@ -74,19 +73,19 @@ public class PlacingParentheses {
                 mins[i][j] = min;
                 maxs[i][j] = max;
 
-//                printArray(mins, "Mins");
-//                printArray(maxs, "Maxs");
+                printArray(mins, "Mins");
+                printArray(maxs, "Maxs");
             }
         }
 
         return maxs[1][values.length];
     }
 
-    public static int[] parseValues(String exp) {
-        int[] values = new int[(exp.length() + 1) / 2];
+    public static long[] parseValues(String exp) {
+        long[] values = new long[(exp.length() + 1) / 2];
 
         for (int i = 0; i < exp.length(); i += 2) {
-            values[i / 2] = Integer.valueOf(exp.substring(i, i + 1));
+            values[i / 2] = Long.valueOf(exp.substring(i, i + 1));
         }
         return values;
     }
@@ -100,7 +99,7 @@ public class PlacingParentheses {
         return ops;
     }
 
-    public static void printArray(int[][] a, String... titles) {
+    public static void printArray(long[][] a, String... titles) {
         if(titles.length > 0) {
             for(String title : titles) {
                 System.out.println(title);
