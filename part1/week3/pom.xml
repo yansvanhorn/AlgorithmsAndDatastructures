@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>week3</artifactId>
+    <artifactId>part1week3</artifactId>
     <dependencies>
         <dependency>
             <groupId>com.google.guava</groupId>
