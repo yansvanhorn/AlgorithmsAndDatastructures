@@ -10,9 +10,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <modules>
-        <module>week2</module>
-        <module>week3</module>
-        <module>week4</module>
+        <module>part1</module>
     </modules>
 
     <build>
